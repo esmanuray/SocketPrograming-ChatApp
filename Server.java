@@ -16,11 +16,11 @@ public class Server {
     public Server() {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
-            System.out.println("Server çalışıyor. Port:  " + PORT);
+            System.out.println("Server running. Port:  " + PORT);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Yeni kullanıcı bağlandı. Bağlanan kullanıcı: " + clientSocket);
+                System.out.println("connect to new user. user: " + clientSocket);
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket);
                 clients.add(clientHandler);
@@ -34,9 +34,6 @@ public class Server {
         new Server();
     }
 
-    /*
-    ClientHandler sınıfı, her bir server bağlantısı için bir threaddir. 
-    serverdan gelen mesajları okur ve bu mesajları diğer clientlere yayınlar.*/
     private class ClientHandler extends Thread {
 
         private Socket socket;
@@ -58,12 +55,12 @@ public class Server {
             String username = null;
             try {
                 username = input.readUTF();
-                broadcast(username + " sohbete katıldı.");
+                broadcast(username + " joined the chat.");
 
                 String message;
                 while (true) {
                     message = input.readUTF();
-                    if (message.equalsIgnoreCase("bye")) {// terminalde çalışan clientde bye yazınca sohbet biter
+                    if (message.equalsIgnoreCase("bye")) {
                         break;
                     }
                     broadcast(username + ": " + message);
@@ -72,7 +69,7 @@ public class Server {
 
             } finally {
                 try {
-                    broadcast(username + " sohbetten ayrıldı.");
+                    broadcast(username + " leave the chat.");
                     socket.close();
                     clients.remove(this);
 
