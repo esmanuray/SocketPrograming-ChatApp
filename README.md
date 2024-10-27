@@ -1,9 +1,8 @@
 # SocketPrograming-ChatApp
-Server-Client konsepti ile oluşurulmuş local'de çalışan mesajlaşma uygulamasıdır.
+It is a local messaging application created with the Server-Client concept.
     
     
-uygulama içi görüntüler:
-
+in-app images:
 
 
 
